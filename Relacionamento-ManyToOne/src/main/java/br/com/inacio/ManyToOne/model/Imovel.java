@@ -2,12 +2,14 @@ package br.com.inacio.ManyToOne.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,12 +24,14 @@ public class Imovel implements Serializable {
 	private static final long serialVersionUID = -8654891696196923215L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String tipo;
-	private String cep;
-	private String logradouro;
-	private String bairro;
+	
+	@OneToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "endereco_id")
+	private Endereco endereco;
+	
 	@ManyToOne
 	@JoinColumn(name = "proprietario_id",nullable = false)
 	private Proprietario proprietario;
