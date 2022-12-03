@@ -28,8 +28,8 @@ public class Imovel implements Serializable {
 	private Long id;
 	private String tipo;
 	
-	@OneToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "endereco_id")
+	@OneToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "numero_id")
 	private Endereco endereco;
 	
 	@ManyToOne

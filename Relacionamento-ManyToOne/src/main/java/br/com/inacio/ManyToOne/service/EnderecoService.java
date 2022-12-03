@@ -32,7 +32,7 @@ public class EnderecoService {
 	}
 
 	public Endereco Update(Endereco obj) {
-		verifyIfExists(obj.getId());
+		verifyIfExists(obj.getNumero_id());
 		return repository.save(obj);
 	}
 

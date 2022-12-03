@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
@@ -22,9 +20,8 @@ public class Endereco implements Serializable{
 	
 	private static final long serialVersionUID = 2428264574588188493L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "endereco_id")
-	private Long id;
+	@Column(name = "numero_id")
+	private Long numero_id;
 	private String cep;
 	private String logradouro;
 	private String bairro;

@@ -1,5 +1,5 @@
 <h1 align="center">
-  Api e-commercer
+  Relacionamento
 </h1>
 
 
@@ -25,6 +25,21 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 
 ## 💻 Projeto
+Através do Modelo de Entidade e Relacionamento (MER) é possível representar os dados de um sistema de forma lógica e visual. O MER é formado por entidades, relacionamentos e atributos. As entidades são objetos que podem ser identificados de forma única e que descrevem um dado, como por exemplo, um usuário. Os relacionamentos são as ligações entre as entidades, e os atributos são características das entidades que descrevem seu conteúdo, como por exemplo, o nome de um usuário. O MER é usado para descrever o relacionamento entre os dados de um sistema, permitindo que sejam facilmente compreendidos e manipulados.
+
+Existem três tipos de relacionamento entre entidades no banco de dados:
+
+1. Relacionamento Um para Um (1:1) - Um relacionamento entre duas entidades em que cada entidade tem exatamente um registro correspondente na outra entidade.
+
+2. Relacionamento Um para Muitos (1:N) - Um relacionamento entre duas entidades em que uma entidade pode ter vários registros correspondentes na outra entidade.
+
+3. Relacionamento Muitos para Muitos (N:N) - Um relacionamento entre duas entidades em que cada entidade pode ter vários registros correspondentes na outra entidade.
+
+**Exemplo de Relacionamento Um para Um (1:1):**
+
+A relação entre Imóvel e Endereço na Figura é um exemplo de relacionamento de um para um (1:1).
+Na Figura, a cardinalidade máxima é também 1:1, ou seja, um Imóvel não pode ter mais de um Endereço e um Endereço não pode ter mais de um Imóvel.
+
 
 
 ## :hammer: Para executar o projeto no terminal, digite o seguinte comando:
