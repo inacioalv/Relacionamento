@@ -35,11 +35,12 @@ Existem três tipos de relacionamento entre entidades no banco de dados:
 
 3. Relacionamento Muitos para Muitos (N:N) - Um relacionamento entre duas entidades em que cada entidade pode ter vários registros correspondentes na outra entidade.
 
-**Exemplo de Relacionamento Um para Um (1:1):**
+**Relacionamento Um para Um (1:1):**
 
-A relação entre Imóvel e Endereço na Figura é um exemplo de relacionamento de um para um (1:1).
-Na Figura, a cardinalidade máxima é também 1:1, ou seja, um Imóvel não pode ter mais de um Endereço e um Endereço não pode ter mais de um Imóvel.
+A relação entre Usuário e Perfil na Figura a baixo é um exemplo de relacionamento de um para um (1:1)
+,ou seja, um Usuário não pode ter mais de um Perfil e um Perfil não pode ter mais de um Usuário.
 
+<img alt="Diagrama Usuari Perfil" src="/img/Diagrama_UsuariPerfil.jpg" />
 
 
 ## :hammer: Para executar o projeto no terminal, digite o seguinte comando:
