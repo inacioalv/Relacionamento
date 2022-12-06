@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,7 +34,8 @@ public class Imovel implements Serializable {
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
 	@ManyToOne
-	@JoinColumn(name = "proprietario_id",nullable = false)
+	@JoinColumn(name = "proprietario_id")
+	@JsonIgnore
 	private Proprietario proprietario;
 
 }

@@ -102,12 +102,50 @@ public class Perfil implements Serializable {
 }
 ```
 
-
-
-
 **Relacionamento Um para Muitos (1:N):**
 
-A relação entre proprietário e imóveis é de um para muitos, pois um proprietário pode possuir vários imóveis, enquanto um imóvel só pode ter um proprietário. Essa relação pode ser representada por meio de duas tabelas no banco de dados: uma tabela de proprietários e outra de imóveis. A tabela de proprietários conteria informações como nome, endereço, CPF, etc., e a tabela de imóveis conteria informações como endereço, área, número de quartos, etc.
+A relação entre proprietário e imóveis é de um para muitos, pois um proprietário possuir vários imóveis, enquanto um imóvel só pode ter um proprietário. Essa relação pode ser representada por meio de duas tabelas no banco de dados: uma tabela de proprietários e outra de imóveis. A tabela de proprietários conteria informações como nome, endereço, CPF, etc., e a tabela de imóveis conteria informações como endereço, área, número de quartos, etc. 
+
+<img alt="Diagrama imoveis e proprietario" src="/img/Diagrama_PropietarioImovel.jpg" />
+
+No Spring Boot o relacionamento entre proprietário e imóvel utilizamos notações @OneToMany e @ManyToOne para definir essa relação. O proprietário (@OneToMany) tem vários imóveis associados a ele, e cada imóvel (@ManyToOne) tem somente um proprietário associado. Esta é a forma como a relação é definida no Spring Boot.
+ 
+```
+public class Proprietario implements Serializable {
+	
+	private static final long serialVersionUID = -2530536440519544967L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String nome;
+	private String cpf;
+	private String telefone;
+	@OneToMany(mappedBy = "proprietario",fetch = FetchType.LAZY)
+	private Set<Imovel> imovels;
+}
+
+```
+```
+public class Imovel implements Serializable {
+
+	private static final long serialVersionUID = -8654891696196923215L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String tipo;
+	private double area;
+	@OneToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "endereco_id")
+	private Endereco endereco;
+	@ManyToOne
+	@JoinColumn(name = "proprietario_id")
+	@JsonIgnore
+	private Proprietario proprietario;
+}
+
+```
 
 
 **Relacionamento Muitos para Muitos (N:N):**
