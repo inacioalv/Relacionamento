@@ -27,11 +27,10 @@ public class Imovel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String tipo;
-	
+	private double area;
 	@OneToOne(cascade = CascadeType.DETACH)
-	@JoinColumn(name = "numero_id")
+	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
-	
 	@ManyToOne
 	@JoinColumn(name = "proprietario_id",nullable = false)
 	private Proprietario proprietario;

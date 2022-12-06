@@ -46,7 +46,7 @@ public class EnderecoResource {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> Update(@RequestBody Endereco endereco, @PathVariable Long id) {
-		endereco.setNumero_id(id);
+		endereco.setId(id);
 		enderecoService.Update(endereco);
 		return ResponseEntity.noContent().build();
 	}

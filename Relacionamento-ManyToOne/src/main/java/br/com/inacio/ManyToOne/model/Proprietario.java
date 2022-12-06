@@ -28,7 +28,7 @@ public class Proprietario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	private int idade;
+	private String cpf;
 	private String telefone;
 	@OneToMany(mappedBy = "proprietario",fetch = FetchType.LAZY)
 	@JsonIgnore
