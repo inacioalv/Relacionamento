@@ -29,6 +29,7 @@ public class Usuario implements Serializable {
 	private UUID id;
 	private String email;
 	private String senha;
+	//@OneToOne(cascade = CascadeType.ALL)
 	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "perfil_id")
 	private Perfil perfil;

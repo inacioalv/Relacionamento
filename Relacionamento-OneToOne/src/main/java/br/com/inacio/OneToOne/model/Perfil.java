@@ -30,6 +30,7 @@ public class Perfil implements Serializable {
 	private String idade;
 	private String genero;
 	private String telefone;
+	//@OneToOne(mappedBy = "perfil")
 	@OneToOne
 	@JsonIgnore
 	private Usuario usuario;
