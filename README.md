@@ -149,7 +149,105 @@ public class Imovel implements Serializable {
 
 
 **Relacionamento Muitos para Muitos (N:N):**
-A relação entre produto e vendas e de muitos para muitos, pois um produto pode ser vendido para mais de um cliente, e um cliente pode comprar mais de um produto.
+
+No relacionamento Muitos-para-Muitos usando uma chave composta, temos duas tabelas com chaves primárias relacionadas em uma terceira tabela. A terceira tabela, além das chaves primárias das outras duas tabelas, terá uma chave primária composta formada pelas duas chaves primárias (geralmente em forma de tupla).
+Essa abordagem é utilizada quando queremos guardar informações adicionais sobre o relacionamento, como por exemplo, a data de criação, data de atualização, entre outras.
+
+Exemplo a relação entre produto e vendas e de muitos para muitos, pois um produto pode ser vendido para mais de um cliente, e um cliente pode comprar mais de um produto, utilizando a chave composta podemos colocar a informação de data da venda.
+
+<img alt="Diagrama Produto e vendas" src="/img/Diagrama_ProdutoVenda.jpg" />
+
+```
+@Data
+@Embeddable
+public class ProdutoVendaPK implements Serializable{
+	
+	private static final long serialVersionUID = -4593010746323328532L;
+
+	@ManyToOne
+	@JoinColumn
+	private Venda venda;
+	
+	@ManyToOne
+	@JoinColumn
+	private Produto produto;
+	
+	@Override
+	public int hashCode() 
+	
+	@Override
+	public boolean equals(Object obj) 
+
+```
+
+```
+@Entity
+public class ProdutoVenda implements Serializable {
+	
+	private static final long serialVersionUID = 4742293368241589682L;
+
+	@EmbeddedId
+	private ProdutoVendaPK id = new ProdutoVendaPK();
+	
+	public ProdutoVenda() {}
+
+	public ProdutoVenda(Produto produto, Venda venda) {
+		super();
+		id.setProduto(produto);
+		id.setVenda(venda);
+		
+	}
+}
+```
+
+```
+public class Produto implements Serializable {
+
+	private static final long serialVersionUID = -1248252608293478027L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String nomeProduto;
+	private double preco;
+
+	@OneToMany(mappedBy = "id.venda")
+	private Set<ProdutoVenda> produtovenda = new HashSet<>();
+	
+	public List<Venda> getvenda(){
+		List<Venda> vendas = new ArrayList<Venda>();
+		for(ProdutoVenda o :produtovenda) {
+			vendas.add(o.getVenda());
+		}
+		return vendas;
+}
+
+```
+
+```
+public class Venda implements Serializable {
+	
+	private static final long serialVersionUID = 8105771382221692674L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String nome_cliente;
+	private String data;
+	private double quantidade;
+	
+	@OneToMany(mappedBy = "id.venda")
+	private Set<ProdutoVenda> produtovenda = new HashSet<>();
+	
+	public List<Produto> getproduto(){
+		List<Produto> produtos = new ArrayList<Produto>();
+		for(ProdutoVenda o:produtovenda) {
+			produtos.add(o.getProduto());
+		}
+		return produtos;
+}
+```
+
 
 ## :hammer: Para executar o projeto no terminal, digite o seguinte comando:
 

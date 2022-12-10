@@ -1,6 +1,7 @@
 package br.com.inacio.ManyToMany.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -13,13 +14,15 @@ public class ProdutoVenda implements Serializable {
 
 	@EmbeddedId
 	private ProdutoVendaPK id = new ProdutoVendaPK();
+	private LocalDate dataVenda = LocalDate.now();
 	
 	public ProdutoVenda() {}
 
-	public ProdutoVenda(Produto produto, Venda venda) {
+	public ProdutoVenda(Produto produto, Venda venda,LocalDate dataVenda) {
 		super();
 		id.setProduto(produto);
 		id.setVenda(venda);
+		this.dataVenda =dataVenda;
 		
 	}
 
@@ -47,4 +50,12 @@ public class ProdutoVenda implements Serializable {
 		this.id = id;
 	}
 
+	public LocalDate getDataVenda() {
+		return dataVenda;
+	}
+
+	public void setDataVenda(LocalDate dataVenda) {
+		this.dataVenda = dataVenda;
+	}
+	
 }
