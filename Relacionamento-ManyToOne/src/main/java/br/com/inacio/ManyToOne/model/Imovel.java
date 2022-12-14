@@ -35,7 +35,7 @@ public class Imovel implements Serializable {
 	private Endereco endereco;
 	
 	@ManyToOne
-	@JoinColumn(nullable = false)
+	@JoinColumn()
 	@JsonIgnore
 	private Proprietario proprietario;
 }

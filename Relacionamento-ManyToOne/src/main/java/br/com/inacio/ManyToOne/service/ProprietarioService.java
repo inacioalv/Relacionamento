@@ -1,23 +1,28 @@
 package br.com.inacio.ManyToOne.service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
 import br.com.inacio.ManyToOne.exception.ResourceNotFoundException;
 import br.com.inacio.ManyToOne.model.Imovel;
 import br.com.inacio.ManyToOne.model.Proprietario;
+import br.com.inacio.ManyToOne.repository.ImovelRepository;
 import br.com.inacio.ManyToOne.repository.ProprietarioRepository;
 
 @Service
 public class ProprietarioService {
 
-	private ProprietarioRepository repository;
+	private ProprietarioRepository proprietarioRepository;
+	private ImovelRepository imovelRepository;
 
-	public ProprietarioService(ProprietarioRepository repository) {
+	public ProprietarioService(ProprietarioRepository proprietarioRepository, ImovelRepository imovelRepository) {
 		super();
-		this.repository = repository;
+		this.proprietarioRepository = proprietarioRepository;
+		this.imovelRepository = imovelRepository;
 	}
 
 	public Proprietario salvar(Proprietario obj) {
@@ -26,24 +31,35 @@ public class ProprietarioService {
 				o.setProprietario(obj);
 			}
 		}
-		return repository.save(obj);
+		return proprietarioRepository.save(obj);
 	}
 
 	public List<Proprietario> buscarTodos() {
-		return repository.findAll();
+		return proprietarioRepository.findAll();
 	}
 
-	public Optional<Proprietario> buscarPorId(Long id) {
-		return repository.findById(id);
+	public Proprietario buscarPorId(Long id) {
+		Optional<Proprietario> findById = proprietarioRepository.findById(id);
+		return findById.orElseThrow(() -> new ResourceNotFoundException("Proprietario não encontrado com ID:" + id));
 	}
 
 	public Proprietario atualizar(Proprietario obj) {
-		verifyIfExists(obj.getId());
-		return repository.save(obj);
+//		Proprietario objUpdate= buscarPorId(obj.getId());
+//		Set<Imovel> vendadeleta = new HashSet<Imovel>();
+		verificarSeExiste(obj.getId());
+
+		if (obj.getImoveies() != null) {
+			for (Imovel o : obj.getImoveies()) {
+				o.setProprietario(obj);
+			}
+
+		}
+		obj = proprietarioRepository.save(obj);
+		return obj;
 	}
 
-	private Proprietario verifyIfExists(Long id) throws ResourceNotFoundException {
-		return repository.findById(id)
+	private Proprietario verificarSeExiste(Long id) throws ResourceNotFoundException {
+		return proprietarioRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Proprietario não encontrado com ID:" + id));
 	}
 

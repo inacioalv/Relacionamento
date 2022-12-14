@@ -2,7 +2,6 @@ package br.com.inacio.ManyToOne.resource;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +44,7 @@ public class ProprietarioResource {
 	}
 	
 	@GetMapping("/{id}")
-	public Optional<Proprietario> buscarPorId(@PathVariable Long id) {
+	public Proprietario buscarPorId(@PathVariable Long id) {
 		return proprietarioService.buscarPorId(id);
 	}
 	
