@@ -25,7 +25,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 
 ## 💻 Projeto
-Através do Modelo de Entidade e Relacionamento (MER) é possível representar os dados de um sistema de forma lógica e visual. O MER é formado por entidades, relacionamentos e atributos. As entidades são objetos que podem ser identificados de forma única e que descrevem um dado, como por exemplo, um usuário. Os relacionamentos são as ligações entre as entidades, e os atributos são características das entidades que descrevem seu conteúdo, como por exemplo, o nome de um usuário. O MER é usado para descrever o relacionamento entre os dados de um sistema, permitindo que sejam facilmente compreendidos e manipulados.
+Através do Modelo de Entidade e Relacionamento (MER) é possível representar os dados de um sistema de forma lógica e visual. O MER é formado por entidades, relacionamentos e atributos. As entidades são objetos que podem ser identificados de forma única e que descrevem um dado, como por exemplo, um usuário. Os relacionamentos são as ligações entre as entidades, e os atributos são características das entidades que descrevem seu conteúdo, como por exemplo, o nome de um usuário.
 
 Existem três tipos de relacionamento entre entidades no banco de dados:
 
@@ -104,7 +104,7 @@ public class Perfil implements Serializable {
 
 **Relacionamento Um para Muitos (1:N):**
 
-A relação entre proprietário e imóveis é de um para muitos, pois um proprietário possuir vários imóveis, enquanto um imóvel só pode ter um proprietário. Essa relação pode ser representada por meio de duas tabelas no banco de dados: uma tabela de proprietários e outra de imóveis. A tabela de proprietários conteria informações como nome, endereço, CPF, etc., e a tabela de imóveis conteria informações como endereço, área, número de quartos, etc. 
+Nessa API utilizamos como exemplo a relação entre proprietário e imóveis que é de um para muitos, pois um proprietário possuir vários imóveis, enquanto um imóvel só pode ter um proprietário. Essa relação pode ser representada por meio de duas tabelas no banco de dados: uma tabela de proprietários e outra de imóveis. A tabela de proprietários conteria informações como nome, endereço, CPF, etc., e a tabela de imóveis conteria informações como endereço, área, número de quartos, etc. 
 
 <img alt="Diagrama imoveis e proprietario" src="/img/Diagrama_PropietarioImovel.jpg" />
 
@@ -148,14 +148,19 @@ public class Imovel implements Serializable {
 ```
 
 
-**Relacionamento Muitos para Muitos (N:N):**
+**Relacionamento Muitos para Muitos usando uma chave composta:**
 
 No relacionamento Muitos-para-Muitos usando uma chave composta, temos duas tabelas com chaves primárias relacionadas em uma terceira tabela. A terceira tabela, além das chaves primárias das outras duas tabelas, terá uma chave primária composta formada pelas duas chaves primárias (geralmente em forma de tupla).
 Essa abordagem é utilizada quando queremos guardar informações adicionais sobre o relacionamento, como por exemplo, a data de criação, data de atualização, entre outras.
+Em JPA, é usado o anotador @Embeddable para classificar os atributos que compõem a chave composta e o anotador @EmbeddedId para marcar a classe que contém a chave primária composta.
 
-Exemplo a relação entre produto e vendas e de muitos para muitos, pois um produto pode ser vendido para mais de um cliente, e um cliente pode comprar mais de um produto, utilizando a chave composta podemos colocar a informação de data da venda.
+Na API foi utilizada a relação entre produtos e vendas que pode ser representada por uma chave composta,
+Por exemplo, uma chave composta pode ser criada para relacionar os dados de uma tabela de produtos com os dados de uma tabela de vendas. Essa chave composta pode ser composta de um campo de identificação de produto e um campo de data de venda. Dessa forma, as informações de produto e venda podem ser relacionadas e usadas para gerar estatísticas sobre a quantidade de produtos vendidos em um determinado período.
 
 <img alt="Diagrama Produto e vendas" src="/img/Diagrama_ProdutoVenda.jpg" />
+
+
+Em JPA, a classe que contém a chave composta poderia ser anotada da seguinte forma:
 
 ```
 @Data
@@ -179,6 +184,7 @@ public class ProdutoVendaPK implements Serializable{
 	public boolean equals(Object obj) 
 
 ```
+A anotação @Embeddable é usada para indicar que uma entidade pode ser aninhada em outra entidade. Isso significa que os atributos da entidade aninhada serão mapeados como campos da entidade principal. Esta anotação é geralmente usada para definir uma entidade de valor em que os atributos são mapeados em uma única tabela. 
 
 ```
 @Entity
@@ -199,6 +205,7 @@ public class ProdutoVenda implements Serializable {
 	}
 }
 ```
+@EmbeddedId é uma anotação JPA usada para indicar que a classe envolvente é uma classe composta a ser usada como uma chave primária composta para uma entidade persistente. Isso significa que a classe contém vários campos que juntos formam uma chave exclusiva para a entidade. Esses campos são armazenados como campos normais na mesma tabela da entidade.
 
 ```
 public class Produto implements Serializable {
