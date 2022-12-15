@@ -72,7 +72,6 @@ public class Proprietario implements Serializable {
 	public Set<Imovel> getImoveies() {
 		Set<Imovel> imovel = new HashSet<>();
 		for (Imovel o : listaImoveis) {
-			o.setProprietario(null);
 			imovel.add(o);
 		}
 		return imovel;

@@ -44,17 +44,36 @@ public class ProprietarioService {
 	}
 
 	public Proprietario atualizar(Proprietario obj) {
-//		Proprietario objUpdate= buscarPorId(obj.getId());
-//		Set<Imovel> vendadeleta = new HashSet<Imovel>();
 		verificarSeExiste(obj.getId());
-
+		Set<Imovel> imovelDeletar = new HashSet<>();
+		//Recuperar o imovel
+		Proprietario objAtualizar = buscarPorId(obj.getId());
+		//vincular o imovel com proprietario
 		if (obj.getImoveies() != null) {
 			for (Imovel o : obj.getImoveies()) {
 				o.setProprietario(obj);
 			}
-
+			//pecorrer a lista que já está vinculada
+			for (Imovel imovelAtualizar : objAtualizar.getImoveies()) {
+				boolean isPresent = false;
+				//percorrer a lista que veio no objeto
+				for (Imovel o : obj.getImoveies()) {
+					//verificar se o imovel já existe na lista
+					if(imovelAtualizar.getId()!= null && imovelAtualizar.getId().equals(o.getId())) {
+						isPresent= true;
+					}
+				}
+				//se o imovel não estiver na lista sera adicionado 
+				if(!isPresent) {
+					imovelDeletar.add(imovelAtualizar);
+				}
+			}
+			
 		}
+		//atualizar proprietario
 		obj = proprietarioRepository.save(obj);
+		//remover a lista de imovel
+		imovelRepository.deleteAll(imovelDeletar);
 		return obj;
 	}
 
